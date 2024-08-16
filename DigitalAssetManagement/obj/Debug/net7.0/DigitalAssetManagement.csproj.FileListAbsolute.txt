@@ -1,0 +1,12 @@
+D:\.Net\DigitalAssetManagement\DigitalAssetManagement\bin\Debug\net7.0\DigitalAssetManagement.deps.json
+D:\.Net\DigitalAssetManagement\DigitalAssetManagement\bin\Debug\net7.0\DigitalAssetManagement.dll
+D:\.Net\DigitalAssetManagement\DigitalAssetManagement\bin\Debug\net7.0\DigitalAssetManagement.pdb
+D:\.Net\DigitalAssetManagement\DigitalAssetManagement\obj\Debug\net7.0\DigitalAssetManagement.csproj.AssemblyReference.cache
+D:\.Net\DigitalAssetManagement\DigitalAssetManagement\obj\Debug\net7.0\DigitalAssetManagement.GeneratedMSBuildEditorConfig.editorconfig
+D:\.Net\DigitalAssetManagement\DigitalAssetManagement\obj\Debug\net7.0\DigitalAssetManagement.AssemblyInfoInputs.cache
+D:\.Net\DigitalAssetManagement\DigitalAssetManagement\obj\Debug\net7.0\DigitalAssetManagement.AssemblyInfo.cs
+D:\.Net\DigitalAssetManagement\DigitalAssetManagement\obj\Debug\net7.0\DigitalAssetManagement.csproj.CoreCompileInputs.cache
+D:\.Net\DigitalAssetManagement\DigitalAssetManagement\obj\Debug\net7.0\DigitalAssetManagement.dll
+D:\.Net\DigitalAssetManagement\DigitalAssetManagement\obj\Debug\net7.0\refint\DigitalAssetManagement.dll
+D:\.Net\DigitalAssetManagement\DigitalAssetManagement\obj\Debug\net7.0\DigitalAssetManagement.pdb
+D:\.Net\DigitalAssetManagement\DigitalAssetManagement\obj\Debug\net7.0\ref\DigitalAssetManagement.dll
