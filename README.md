@@ -8,7 +8,6 @@ This SDK allows developers to interact with a Digital Asset Management (DAM) sys
   - [Configuration](#configuration)
   - [Uploading an Image](#uploading-an-image)
   - [Uploading a Video](#uploading-a-video)
-  - [Retrieving an Asset by Public ID](#retrieving-an-asset-by-public-id)
 - [License](#license)
 
 ## Installation
