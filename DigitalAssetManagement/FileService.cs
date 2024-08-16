@@ -55,27 +55,31 @@ namespace DigitalAssetManagement
                     throw new Exception($"Failed to upload asset: {response.ReasonPhrase}");
                 }
 
-                return await response.Content.ReadAsStringAsync();
+                var result = await response.Content.ReadAsStringAsync();
+
+
+                return buildSecureUrl(_httpClient.BaseAddress.ToString(), result, account);
             }
         }
 
-        public async Task<object> GetAssetAsync(string path, Dictionary<string, string>? options = null)
+        private string buildSecureUrl(string baseUrl, string filePath, Account account)
         {
-            var uriBuilder = new UriBuilder($"{_httpClient.BaseAddress}{getApiUrl}/{path}");
+            return baseUrl + "/"+ account.TenantId +"/" + filePath;
+        }
 
+        public async Task<byte[]> GetImageFileAsync(string tenantId, string path, Dictionary<string, string>? options = null)
+        {
+            var uriBuilder = new UriBuilder($"{_httpClient.BaseAddress}{getApiUrl}/{tenantId}/image/{path}");
             if (options != null && options.Any())
             {
                 var query = await new FormUrlEncodedContent(options).ReadAsStringAsync();
                 uriBuilder.Query = query;
             }
-
             var request = new HttpRequestMessage(HttpMethod.Get, uriBuilder.Uri);
-
             var response = await _httpClient.SendAsync(request);
             response.EnsureSuccessStatusCode();
-
-            var responseBody = await response.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<object>(responseBody);
+            var imageFileBytes = await response.Content.ReadAsByteArrayAsync();
+            return imageFileBytes;
         }
     }
 

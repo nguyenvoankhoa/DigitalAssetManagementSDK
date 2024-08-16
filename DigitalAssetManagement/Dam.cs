@@ -6,7 +6,7 @@ namespace DigitalAssetManagement
     {
         private readonly HttpClient _httpClient;
         private readonly FileService _fileService;
-        private readonly string baseUrl = "http://localhost:8080/";
+        private readonly string baseUrl = "http://10.6.20.87:8080/";
 
         private Account _account;
 
@@ -29,14 +29,10 @@ namespace DigitalAssetManagement
             return await _fileService.UploadAsync(param, _account);
         }
 
-        public async Task<object> GetAsset(string path, Dictionary<string, string>? options = null)
+     
+        public async Task<object> GetAsset(string tenantId, string path, Dictionary<string, string>? options = null)
         {
-            return await _fileService.GetAssetAsync(path, options);
-        }
-
-        public async Task<object> GetAsset(string tenantId, string publicId, Dictionary<string, string>? options = null)
-        {
-            return await _fileService.GetAssetAsync($"{tenantId}/{publicId}", options);
+            return await _fileService.GetImageFileAsync(tenantId, path, options);
         }
     }
 

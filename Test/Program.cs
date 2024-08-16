@@ -8,7 +8,12 @@ string apiKey = "api_key_1";
 
 async Task testUploadImage()
 {
-    string localFilePath = "D:\\.Net\\DigitalAssetManagement\\Test\\Asset\\shoe.jpg";
+    // Use a relative path instead of an absolute path
+    string relativeFilePath = Path.Combine("Asset", "shoe.jpg");
+
+    // Get the full path based on the current directory
+    string localFilePath = Path.GetFullPath(relativeFilePath);
+
     using var fileStream = new FileStream(localFilePath, FileMode.Open, FileAccess.Read);
     var file = new FormFile(fileStream, 0, fileStream.Length, "file", Path.GetFileName(localFilePath));
 
@@ -16,22 +21,21 @@ async Task testUploadImage()
     acc.SecretKey = secretKey;
     acc.ApiKey = apiKey;
     acc.TenantId = tenantId;
-    Dam dam = new(acc);
+    Dam dam = new Dam(acc);
     var uploadParams = new ImageUploadParam()
     {
-        File = file,
-        Folder = "YPP3",
-        Type = "jpg",
-        Space = "9D00AA9D-CB79-4255-A706-DD8961A2BD87"
+        File = file
     };
 
     string result = await dam.UploadAsset(uploadParams);
+
+    Console.WriteLine(result);
 }
 
-testUploadImage();
 async Task testUploadVideo()
 {
-    string localFilePath = "D:\\.Net\\DigitalAssetManagement\\Test\\Asset\\shoe.jpg";
+    string relativeFilePath = Path.Combine("Asset", "dance-2.mp4");
+    string localFilePath = Path.GetFullPath(relativeFilePath);
     using var fileStream = new FileStream(localFilePath, FileMode.Open, FileAccess.Read);
     var file = new FormFile(fileStream, 0, fileStream.Length, "file", Path.GetFileName(localFilePath));
 
@@ -50,16 +54,6 @@ async Task testUploadVideo()
 
     string result = await dam.UploadAsset(uploadParams);
 }
-
-testUploadVideo();
-
-async Task testGetByPath()
-{
-    Dam dam = new();
-    string path = "shoe.jpg";
-    object result = await dam.GetAsset(path);
-}
-
 
 async Task testGetByPublicId()
 {
