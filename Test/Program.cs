@@ -8,14 +8,12 @@ string apiKey = "api_key_1";
 
 async Task testUploadImage()
 {
-    // Use a relative path instead of an absolute path
-    string relativeFilePath = Path.Combine("Asset", "shoe.jpg");
-
-    // Get the full path based on the current directory
-    string localFilePath = Path.GetFullPath(relativeFilePath);
-
-    using var fileStream = new FileStream(localFilePath, FileMode.Open, FileAccess.Read);
-    var file = new FormFile(fileStream, 0, fileStream.Length, "file", Path.GetFileName(localFilePath));
+    string baseDir = AppContext.BaseDirectory;
+    string testDir = Path.Combine(baseDir, @"..\..\..\");
+    string relativePath = Path.Combine(testDir, "Asset", "shoe.jpg");
+    string localPath = Path.GetFullPath(relativePath);
+    using var fileStream = new FileStream(localPath, FileMode.Open, FileAccess.Read);
+    var file = new FormFile(fileStream, 0, fileStream.Length, "file", Path.GetFileName(localPath));
 
     Account acc = new Account();
     acc.SecretKey = secretKey;
@@ -34,11 +32,13 @@ async Task testUploadImage()
 
 async Task testUploadVideo()
 {
-    string relativeFilePath = Path.Combine("Asset", "dance-2.mp4");
-    string localFilePath = Path.GetFullPath(relativeFilePath);
-    using var fileStream = new FileStream(localFilePath, FileMode.Open, FileAccess.Read);
-    var file = new FormFile(fileStream, 0, fileStream.Length, "file", Path.GetFileName(localFilePath));
-
+    string baseDir = AppContext.BaseDirectory;
+    string testDir = Path.Combine(baseDir, @"..\..\..\");
+    string relativePath = Path.Combine(testDir, "Asset", "shoe.jpg");
+    string localPath = Path.GetFullPath(relativePath);
+    using var fileStream = new FileStream(localPath, FileMode.Open, FileAccess.Read);
+    var file = new FormFile(fileStream, 0, fileStream.Length, "file", Path.GetFileName(localPath));
+    
     Account acc = new Account();
     acc.SecretKey = secretKey;
     acc.ApiKey = apiKey;
