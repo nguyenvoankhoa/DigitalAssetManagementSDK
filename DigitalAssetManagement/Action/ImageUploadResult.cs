@@ -8,14 +8,16 @@ namespace DigitalAssetManagement.Action
 {
     public class ImageUploadResult
     {
-        public string? PublicId { get; set; }
-
-        public ResourceType? ResourceType { get; set; }
-
+        public Guid Id { get; set; }
+        public string PublicId { get; set; }
+        public string DisplayName { get; set; }
+        public ResourceType Type { get; set; }
+        public string ExtensionFile { get; set; }
+        public long Size { get; set; }
+        public string FilePath { get; set; }
+        public string ThumbnailUrl { get; set; }
+        public string OriginalFilename { get; set; }
         public DateTime CreatedAt { get; set; }
-
-        public string? OriginalFilename { get; set; }
-
-        public string? SecureUrl { get; set; }
+        public DateTime UpdatedAt { get; set; }
     }
 }

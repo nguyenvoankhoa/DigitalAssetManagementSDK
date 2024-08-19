@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace DigitalAssetManagement.Action
@@ -19,6 +21,14 @@ namespace DigitalAssetManagement.Action
                 dict.Add(key, value);
             }
         }
+        protected static void AddParam(SortedDictionary<string, object> dict, string key, Transformation value)
+        {
+            if (value != null)
+            {
+                dict.Add(key, JsonSerializer.Serialize(value.m_transformParams));
+            }
+        }
+
         protected static void AddParam(SortedDictionary<string, object> dict, string key, DateTime value)
         {
             if (value != DateTime.MinValue)

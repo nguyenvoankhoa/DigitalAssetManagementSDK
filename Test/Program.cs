@@ -22,10 +22,11 @@ async Task testUploadImage()
     Dam dam = new Dam(acc);
     var uploadParams = new ImageUploadParam()
     {
-        File = file
+        File = file,
+        Transformation = new Transformation().Width(200).Height(300).Quality(50)
     };
 
-    string result = await dam.UploadAsset(uploadParams);
+    ImageUploadResult result = await dam.UploadAsset(uploadParams);
 
     Console.WriteLine(result);
 }
@@ -38,7 +39,7 @@ async Task testUploadVideo()
     string localPath = Path.GetFullPath(relativePath);
     using var fileStream = new FileStream(localPath, FileMode.Open, FileAccess.Read);
     var file = new FormFile(fileStream, 0, fileStream.Length, "file", Path.GetFileName(localPath));
-    
+
     Account acc = new Account();
     acc.SecretKey = secretKey;
     acc.ApiKey = apiKey;

@@ -17,7 +17,7 @@ namespace DigitalAssetManagement
             _httpClient = httpClient;
         }
 
-        public async Task<string> UploadAsync(ImageUploadParam fileUpload, Account account)
+        public async Task<ImageUploadResult> UploadAsync(ImageUploadParam fileUpload, Account account)
         {
             if (fileUpload.File == null || fileUpload.File.Length == 0)
             {
@@ -55,31 +55,16 @@ namespace DigitalAssetManagement
                     throw new Exception($"Failed to upload asset: {response.ReasonPhrase}");
                 }
 
-                var result = await response.Content.ReadAsStringAsync();
-
-
-                return buildSecureUrl(_httpClient.BaseAddress.ToString(), result, account);
+                var responseContent = await response.Content.ReadAsStringAsync();
+                var result = JsonConvert.DeserializeObject<ImageUploadResult>(responseContent);
+                result.FilePath = buildSecureUrl(_httpClient.BaseAddress.ToString(), result.FilePath, account, fileUpload.ResourceType);
+                return result;
             }
         }
 
-        private string buildSecureUrl(string baseUrl, string filePath, Account account)
+        private string buildSecureUrl(string baseUrl, string filePath, Account account, ResourceType type)
         {
-            return baseUrl + "/"+ account.TenantId +"/" + filePath;
-        }
-
-        public async Task<byte[]> GetImageFileAsync(string tenantId, string path, Dictionary<string, string>? options = null)
-        {
-            var uriBuilder = new UriBuilder($"{_httpClient.BaseAddress}{getApiUrl}/{tenantId}/image/{path}");
-            if (options != null && options.Any())
-            {
-                var query = await new FormUrlEncodedContent(options).ReadAsStringAsync();
-                uriBuilder.Query = query;
-            }
-            var request = new HttpRequestMessage(HttpMethod.Get, uriBuilder.Uri);
-            var response = await _httpClient.SendAsync(request);
-            response.EnsureSuccessStatusCode();
-            var imageFileBytes = await response.Content.ReadAsByteArrayAsync();
-            return imageFileBytes;
+            return baseUrl + getApiUrl + "/" + account.TenantId + "/" + type.ToString().ToLower() + "/" + filePath;
         }
     }
 

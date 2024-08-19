@@ -12,6 +12,8 @@ namespace DigitalAssetManagement.Action
         public string? Type { get; set; }
         public string? NotificationUrl { get; set; }
         public string? Folder { get; set; }
+
+        public Transformation? Transformation { get; set; }
         public virtual ResourceType ResourceType => ResourceType.Image;
         public override SortedDictionary<string, object> ToParamsDictionary()
         {
@@ -23,10 +25,11 @@ namespace DigitalAssetManagement.Action
             AddParam(dict, "public_id", PublicId);
             AddParam(dict, "format", Format);
             AddParam(dict, "type", Type);
+            AddParam(dict, "transformation", Transformation);
             return dict;
 
         }
 
-
+        
     }
 }
